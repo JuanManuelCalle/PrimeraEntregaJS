@@ -1,4 +1,4 @@
-let opcion = prompt("Hola! Bienvenido a tu simulador de credito vehicular que es lo que deseas hacer hoy? 1. Simular credito 2. Abonar deuda 3. Calcular deuda restante")
+let opcion = prompt("Hola! Bienvenido a tu simulador de credito vehicular que es lo que deseas hacer hoy? 1. Simular credito 2. Ver listas de carros 3. Calcular deuda restante")
 
 opcion = parseInt(opcion);
 
@@ -54,7 +54,136 @@ function mostrarOpciones(opcion)
 
             break;
         case 2:
-            alert("¡Función proximamente!");
+            let opcionCase2 = parseInt(prompt("Bienvenido a la lista de vehiculos, que desea hacer: 1. Ver lista de los autos disponibles. 2. Buscar auto especifico. 3.  Filtrar por precio. 4. Simular el credito de un auto de la lista"));
+
+            const auto1 = {
+                    marca: "Toyota",
+                    modelo: "Corolla",
+                    precio: 25000
+            };
+                
+            const auto2 = {
+                marca: "Honda",
+                modelo: "Civic",
+                precio: 27000
+            };
+                
+            const auto3 = {
+                marca: "Ford",
+                modelo: "Mustang",
+                precio: 40000
+            };
+                
+            const auto4 = {
+                marca: "Chevrolet",
+                modelo: "Corvette",
+                precio: 80000
+            };
+
+            const auto5 = {
+                marca: "Porshe",
+                modelo: "GT3 RS",
+                precio: 100000
+            };
+
+            const auto6 = {
+                marca: "Porshe",
+                modelo: "Carrera GT",
+                precio: 220000
+            };
+
+            const auto7 = {
+                marca: "Chevrolet",
+                modelo: "Onix Rs",
+                precio: 100000
+            };
+
+            const inventarioAutos = [auto1, auto2, auto3,auto4,auto5,auto6,auto7];
+
+            function buscarAuto(marca, modelo) {
+                let AutoEncontrado = inventarioAutos.find(auto => auto.marca === marca && auto.modelo === modelo);
+                if(AutoEncontrado){
+                    return AutoEncontrado;
+                }
+            }
+
+            function filtrarPorPrecio(maxPrecio) {
+                return inventarioAutos.filter(auto => auto.precio <= maxPrecio);
+            }
+
+            function simularCredito(marca, modelo, cuotaInicial, plazo) {
+                const auto = buscarAuto(marca, modelo);
+            
+                if (!auto) {
+                    console.log("El auto solicitado no está disponible en el inventario.");
+                    return;
+                }
+            
+                const precioTotal = auto.precio;
+                const saldoPendiente = precioTotal - cuotaInicial;
+                const cuotaMensual = saldoPendiente / plazo;
+            
+                console.log(`Solicitud de crédito aprobada:
+                Marca: ${auto.marca}
+                Modelo: ${auto.modelo}
+                Precio del auto: $${precioTotal}
+                Cuota inicial: $${cuotaInicial}
+                Plazo: ${plazo} meses
+                Saldo pendiente: $${saldoPendiente}
+                Cuota mensual: $${cuotaMensual.toFixed(2)}`);
+            }
+
+            switch (opcionCase2) {
+                case 1:
+                        inventarioAutos.forEach((auto, index) => {
+                            console.log(`Auto ${index + 1}:`);
+                            console.log("Marca:", auto.marca);
+                            console.log("Modelo:", auto.modelo);
+                            console.log("Precio:", auto.precio);
+                            console.log("--------------------");
+                        });
+                        break;
+                
+                    default:
+                break;
+
+                case 2:
+                        let marca = prompt("Ingrese la marca del vehiculo: ");
+                        let modelo = prompt("Ingrese el modelo del vehiculo: ");
+                        let busqueda = buscarAuto(marca,modelo);
+                        if(busqueda){
+                            console.log("-- Busqueda exitosa --");
+                            console.log("Marca: " + busqueda.marca);
+                            console.log("Modelo: " + busqueda.modelo);
+                            console.log("Precio: " + busqueda.precio);
+                            console.log("--------------");
+                        }else{
+                            console.log("El auto solicitado no está disponible en el inventario.");
+                        }
+                    break;
+                
+                    case 3:
+                        let maxPrecio = prompt("Ingrese el rango de precio del vehiculo: ");
+                        let busquedaprecio = filtrarPorPrecio(maxPrecio);
+                        console.log("-- Filtro aplicado exitosamente --");
+                        busquedaprecio.forEach(auto => {
+                            console.log("Marca: " + auto.marca);
+                            console.log("Modelo: " + auto.modelo);
+                            console.log("Precio: " + auto.precio);
+                            console.log("--------------");
+                        });
+                    break;
+
+                    case 4:
+                        let marcaSimulador = prompt("Ingrese la marca que desea simular");                        
+                        let modeloSimulador = prompt("Ingrese el modelo que desea simular");                        
+                        let coutaInicialSimulador = parseInt(prompt("Ingrese la couta inicial"));                        
+                        let plazo = parseInt(prompt("Ingrese el plazo en meses"));
+
+                        simularCredito(marcaSimulador, modeloSimulador, coutaInicialSimulador, plazo);
+                    break;
+                
+            }
             break;
         case 3:
             alert("¡Función proximamente!");
