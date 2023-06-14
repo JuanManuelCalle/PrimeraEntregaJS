@@ -164,7 +164,11 @@ function simularCredito(marca, modelo, cuotaInicial, plazo) {
   const auto = buscarAuto(marca, modelo);
 
   if (!auto) {
-    console.log("El auto solicitado no está disponible en el inventario.");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'El auto solicitado no está disponible en el inventario.'
+    });
     return;
   }
 
@@ -328,7 +332,11 @@ function realizarAccion(opcion) {
           card.appendChild(cardBody);
           inventarioContainer.appendChild(card);
       } else {
-        console.log("El auto solicitado no está disponible en el inventario.");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'El auto solicitado no está disponible en el inventario.'
+        });
       }
       break;
 
@@ -430,7 +438,11 @@ function mostrarDatosUsuario(nombreUsuario) {
     card.appendChild(cardBody);
     inventarioContainer.appendChild(card);
   } else {
-    console.log("Usuario no encontrado.");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Usuario no encontrado intenta nuevamente'
+    });
   }
 }
 
