@@ -1,4 +1,4 @@
-# PrimeraEntregaJS
+# TerceraEntregaJS
 
 Se hace actualizacion para hacer entrega de la tercer preentrega
 
