@@ -1,5 +1,5 @@
-# PrimeraEntregaJS
+# TerceraEntregaJS
 
-Se hace actualizacion para hacer segunda entrega.
+Se hace actualizacion para hacer entrega de la tercer preentrega
 
-El case 2 del switch tienes las nuevas opciones de la segunda preentrega
+Se agregan librerias y aspectos del DOM, ya se cambia todos los console.log y prompt
