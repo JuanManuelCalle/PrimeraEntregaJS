@@ -1,7 +1,9 @@
-# TerceraEntregaJS
-
-Se hace actualizacion para hacer entrega de la tercer preentrega
-
-Se agregan librerias y aspectos del DOM, ya se cambia todos los console.log y prompt
+#EntregaFinal
+Se hacen cambios para entrega final
+Se agrega: 
+    - Se cambia la organizacion del los objetos de coches
+    - Import y export del archivo coches
+    - Se hace consumo de api externa
+    - corrije errores minimos
 
 https://juanmanuelcalle.github.io/PrimeraEntregaJS/
