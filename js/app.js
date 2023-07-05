@@ -1,50 +1,10 @@
-const auto1 = {
-    marca: "Toyota",
-    modelo: "Corolla",
-    precio: 25000
-  };
-
-  const auto2 = {
-    marca: "Honda",
-    modelo: "Civic",
-    precio: 27000
-  };
-
-  const auto3 = {
-    marca: "Ford",
-    modelo: "Mustang",
-    precio: 40000
-  };
-
-  const auto4 = {
-    marca: "Chevrolet",
-    modelo: "Corvette",
-    precio: 80000
-  };
-
-  const auto5 = {
-    marca: "Porshe",
-    modelo: "GT3 RS",
-    precio: 100000
-  };
-
-  const auto6 = {
-    marca: "Porshe",
-    modelo: "Carrera GT",
-    precio: 220000
-  };
-
-  const auto7 = {
-    marca: "Chevrolet",
-    modelo: "Onix Rs",
-    precio: 100000
-  };
-
+  import { auto1, auto2, auto3, auto4, auto5, auto6, auto7 } from '../js/coches.js';
   const inventarioAutos = [auto1, auto2, auto3, auto4, auto5, auto6, auto7];
 
-  const btnSimular = document.getElementById("simulator");
-  const btnListaVehiculo = document.getElementById("listaV");
-  const datosUser = document.getElementById("datosUser");
+  let btnSimular = document.getElementById("simulator");
+  let btnListaVehiculo = document.getElementById("listaV");
+  let datosUser = document.getElementById("datosUser");
+  let infoDetallada = document.getElementById("infoDetallada");
 
   btnSimular.addEventListener("click", function(){
     mostrarOpciones(1);
@@ -58,11 +18,17 @@ const auto1 = {
     mostrarOpciones(3);
   });
 
+  infoDetallada.addEventListener("click", function(){
+    mostrarOpciones(4);
+  })
+  
+
 
 function mostrarOpciones(opcion) {
   const opcion1 = document.getElementById("case1");
   const opcion2 = document.getElementById("case2");
   const opcion3 = document.getElementById("case3");
+  const opcion4 = document.getElementById("case4");
 
   switch (opcion) {
     case 1:
@@ -72,6 +38,8 @@ function mostrarOpciones(opcion) {
       opcion2.classList.add("d-none");
       opcion3.classList.add("d-none");
       opcion3.classList.remove("d-block");
+      opcion4.classList.add("d-none");
+      opcion4.classList.remove("d-block");
       break;
     case 2:
         opcion2.classList.add("d-block");
@@ -80,6 +48,8 @@ function mostrarOpciones(opcion) {
         opcion1.classList.add("d-none");
         opcion3.classList.add("d-none");
         opcion3.classList.remove("d-block");
+        opcion4.classList.add("d-none");
+        opcion4.classList.remove("d-block");
       break;
     case 3:
         opcion3.classList.add("d-block");
@@ -88,7 +58,20 @@ function mostrarOpciones(opcion) {
         opcion2.classList.remove("d-block");
         opcion1.classList.remove("d-block");
         opcion1.classList.add("d-none");
+        opcion4.classList.remove("d-block");
+        opcion4.classList.add("d-none");
       break;
+    case 4:
+      opcion4.classList.add("d-block");
+      opcion4.classList.remove("d-none");
+      opcion2.classList.add("d-none");
+      opcion2.classList.remove("d-block");
+      opcion1.classList.remove("d-block");
+      opcion1.classList.add("d-none");
+      opcion3.classList.remove("d-block");
+      opcion3.classList.add("d-none");
+    break;
+
   }
 }
 
@@ -450,4 +433,64 @@ let btnVerDatos = document.getElementById("btn_datos");
 btnVerDatos.addEventListener("click", function() {
   let nombreUsuario = document.getElementById("nombre").value;
   mostrarDatosUsuario(nombreUsuario);
+});
+
+let btn_buscarInfo = document.getElementById("btn_buscarInfo");
+btn_buscarInfo.addEventListener("click", function() {
+
+  let ModeloVehiculo = document.getElementById("ModeloVehiculo").value;
+
+  const apiKey = 'IdLgwQE6AmREjFBNpm78NQ==VXEYSx9RSqSYQyLD';
+
+  const url = `https://api.api-ninjas.com/v1/cars?limit=1&model=${ModeloVehiculo}`;
+  
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'X-Api-Key': apiKey
+    }
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Error en la solicitud');
+    })
+    .then(data => {
+      data.forEach((data) => {
+        const card = createCard();
+        const cardBody = createCardBody();
+
+        let cylinders = "";
+        if(data.cylinders == undefined)
+        {
+          cylinders = "No especificado"
+        }else{
+          cylinders = data.drive
+        }
+
+        const ano = createCardText("Año:", data.year);
+        const marca = createCardText("Marca:", data.make);
+        const modelo = createCardText("Modelo:", data.model);
+        const manejo = createCardText("Manejo:", data.drive);
+        const cilindros = createCardText("Cilindros:", cylinders);
+        const combustible = createCardText("Tipo de combustible:", data.fuel_type);
+        const transmicion = createCardText("Tipo de transmision:", data.transmission);
+
+        cardBody.appendChild(ano);
+        cardBody.appendChild(marca);
+        cardBody.appendChild(modelo);
+        cardBody.appendChild(manejo);
+        cardBody.appendChild(cilindros);
+        cardBody.appendChild(combustible);
+        cardBody.appendChild(transmicion);
+
+        card.appendChild(cardBody);
+        inventarioContainer.appendChild(card);
+      });
+    })
+    .catch(error => {
+      console.error('Error: ', error);
+    });
+
 });
