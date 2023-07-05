@@ -1,7 +1,6 @@
-# TerceraEntregaJS
+# EntregaFinalJS
 
-Se hace actualizacion para hacer entrega de la tercer preentrega
+Se hacen cambios para entrega final
 
-Se agregan librerias y aspectos del DOM, ya se cambia todos los console.log y prompt
-
+Link: GitHub Pages
 https://juanmanuelcalle.github.io/PrimeraEntregaJS/
